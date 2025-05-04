@@ -27,9 +27,8 @@ If you use this code in your research, please cite the following paper:
 This implementation provides a comprehensive framework for:
 - Hybrid RF-WOC network optimization
 - Age of Information (AoI) analysis
-- Energy efficiency evaluation
-- Network performance simulation
-- Monte Carlo analysis of network parameters
+- Energy Efficiency evaluation
+- Packed Delivery Rate/Packet Exchanged performance simulation
 
 ## Project Structure
 
@@ -44,19 +43,7 @@ This implementation provides a comprehensive framework for:
 
 ## Key Features
 
-1. **Network Optimization**
-   - Hybrid RF-WOC communication scheduling
-   - Energy efficiency optimization
-   - Throughput maximization
-   - Age of Information minimization
-
-2. **Simulation Capabilities**
-   - Variable network size analysis (APs and devices)
-   - Monte Carlo simulations
-   - Performance metrics visualization
-   - Network parameter analysis
-
-3. **Performance Metrics**
+**Performance Metrics**
    - Energy per bit consumption
    - Total packets exchanged
    - Peak and Mean Age of Information
@@ -68,7 +55,7 @@ This implementation provides a comprehensive framework for:
 - Python 3.8+
 - NumPy
 - Matplotlib
-- Docplex
+- Docplex (Academic CPLEX to support high number of decision variables/constraints)
 - Pandas
 - Seaborn
 
@@ -102,7 +89,7 @@ python main.py
 
 ### Network Size Analysis
 
-The code supports two types of network size analysis:
+The code for now supports two types of network size analysis:
 
 1. **Varying Number of APs**
 ```python
@@ -142,9 +129,8 @@ run_Nd_simulation(
 
 The simulation generates several visualizations:
 1. Network parameter distributions (SNR and capacity)
-2. Energy per bit vs. total exchanged packets
+2. Energy per bit/total exchanged packets vs. avg. number of packets/nodes
 3. Mean and Peak Age of Information metrics
-4. Network scheduling matrices
 
 ## Contributing
 
