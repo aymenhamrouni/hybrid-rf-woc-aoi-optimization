@@ -1,15 +1,32 @@
 """
-MINLP_model.py - Mixed Integer Non-Linear Programming Model for Hybrid RF-OWC Network Optimization
+Mixed Integer Non-Linear Programming Model for Hybrid RF-WOC Network Optimization
 
-This module contains the MINLP_model function which formulates and solves a mixed integer non-linear programming
-problem for optimizing communication in a hybrid RF-OWC (Radio Frequency - Optical Wireless Communication) network.
+This module implements a MINLP model for optimizing communication in hybrid RF-WOC networks.
+The model considers multiple objectives and constraints:
 
-The model considers:
-- Multiple communication modes (RF and OWC)
-- Energy constraints
-- Message scheduling
-- Network topology constraints
-- Signal quality requirements
+1. Objectives:
+   - Maximize message delivery
+   - Minimize energy consumption
+   - Maximize network capacity
+   - Minimize transmission delay
+   - Minimize technology switching
+   - Multi-objective optimization
+
+2. Constraints:
+   - Network topology
+   - Energy limitations
+   - Signal quality requirements
+   - Message scheduling
+   - Technology switching
+
+3. Key Features:
+   - Support for multiple communication modes
+   - Age of Information (AoI) metrics
+   - Energy-aware scheduling
+   - Context-aware optimization
+
+Author: Aymen Hamrouni
+Date: 2024
 """
 
 import docplex.mp.model as cpx
@@ -20,69 +37,55 @@ def MINLP_model(M_OWC, M, maxN, N, Time, msgQueues, BiggestMsg, MsgNumber, T,
                 capacity_matrix, S_p, Time_unit, SendEnergy, RecieveEnergy, EnergyTotal,
                 objective_type='max_messages', Timeout=60):
     """
-    Formulates and solves a MINLP model for hybrid RF-OWC network optimization.
-
-    Parameters:
-    -----------
-    M_OWC : int
-        Starting mode index for OWC (0 for RF, 1 for OWC)
-    M : int
-        Total number of communication modes
-    maxN : int
-        Maximum number of messages that can be sent
-    N : int
-        Number of nodes in the network
-    Time : int
-        Number of time slots
-    msgQueues : list
-        Message queues for each node pair
-    BiggestMsg : int
-        Maximum message size
-    MsgNumber : list
-        Number of messages for each node pair
-    T : list
-        Topology matrix
-    snr_db_matrix_RF : numpy.ndarray
-        Signal-to-noise ratio matrix for RF
-    snr_db_matrix_OWC : numpy.ndarray
-        Signal-to-noise ratio matrix for OWC
-    snr_min_rf : float
-        Minimum SNR threshold for RF
-    snr_min_owc : float
-        Minimum SNR threshold for OWC
-    capacity_matrix : numpy.ndarray
-        Channel capacity matrix
-    S_p : int
-        Packet size in bits
-    Time_unit : float
-        Duration of one time unit
-    SendEnergy : numpy.ndarray
-        Energy required for sending
-    RecieveEnergy : numpy.ndarray
-        Energy required for receiving
-    EnergyTotal : list
-        Total available energy per node
-    objective_type : str
-        Type of objective to optimize:
-        - 'max_messages': Maximize number of messages (Obj2)
-        - 'min_energy': Minimize energy consumption (Obj1)
-        - 'max_capacity': Maximize capacity (Obj0)
-        - 'min_delay': Minimize delay (Obj5)
-        - 'min_switching': Minimize switching (Obj4)
-    Timeout : int
-        Time limit for solving the model
-
+    Formulate and solve the MINLP model for hybrid RF-WOC network optimization.
+    
+    This function implements the core optimization model with the following components:
+    1. Decision Variables:
+       - Communication mode selection
+       - Message transmission scheduling
+       - Node status tracking
+       - Delay variables
+    
+    2. Constraints:
+       - Single mode communication
+       - Energy limitations
+       - Signal quality requirements
+       - Message scheduling
+       - Technology switching
+    
+    3. Objectives:
+       - Message maximization
+       - Energy minimization
+       - Capacity maximization
+       - Delay minimization
+       - Switching minimization
+       - Multi-objective optimization
+    
+    Args:
+        M_OWC (int): Starting mode index for OWC
+        M (int): Total number of communication modes
+        maxN (int): Maximum number of messages
+        N (int): Number of nodes
+        Time (int): Number of time slots
+        msgQueues (list): Message queues for each node pair
+        BiggestMsg (int): Maximum message size
+        MsgNumber (list): Number of messages per node pair
+        T (list): Topology matrix
+        snr_db_matrix_RF (numpy.ndarray): RF SNR matrix
+        snr_db_matrix_OWC (numpy.ndarray): OWC SNR matrix
+        snr_min_rf (float): Minimum RF SNR
+        snr_min_owc (float): Minimum OWC SNR
+        capacity_matrix (numpy.ndarray): Channel capacity matrix
+        S_p (int): Packet size
+        Time_unit (float): Time unit duration
+        SendEnergy (numpy.ndarray): Energy for sending
+        RecieveEnergy (numpy.ndarray): Energy for receiving
+        EnergyTotal (list): Total available energy
+        objective_type (str): Optimization objective type
+        Timeout (int): Solver timeout
+    
     Returns:
-    --------
-    tuple
-        (MINLP_solution, opt_model, x, x_m, status, delta, Unsent)
-        - MINLP_solution: Solution object from the solver
-        - opt_model: The optimization model
-        - x: Binary variables for communication decisions
-        - x_m: Binary variables for message transmission
-        - status: Node status variables
-        - delta: Message delay variables
-        - Unsent: Number of unsent messages
+        tuple: (MINLP_solution, opt_model, x, x_m, status, delta, Unsent)
     """
     Max1 = 0  # max value for subobjective 1
     Max2 = 0  # max value for subobjective 2

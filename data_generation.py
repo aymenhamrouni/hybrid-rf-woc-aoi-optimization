@@ -5,6 +5,29 @@ Created on Fri Mar 15 22:02:33 2024
 @author: Aymen Hamrouni
 """
 
+"""
+Network and Message Data Generation Module
+
+This module provides functionality for generating network characteristics and message data
+for the hybrid RF-WOC network optimization. It includes:
+
+1. NetworkCharacteristics Class:
+   - Generates network topology
+   - Calculates channel parameters
+   - Computes energy consumption
+   - Generates message queues
+
+2. Key Features:
+   - Random network topology generation
+   - SNR and capacity matrix calculation
+   - Energy consumption modeling
+   - Message generation with different priorities
+   - Support for multiple applications
+
+Author: Aymen Hamrouni
+Date: 2024
+"""
+
 # data_generation.py
 import numpy as np
 import random
@@ -19,30 +42,50 @@ from constants import (
 import matplotlib.pyplot as plt
 
 class NetworkCharacteristics:
+    """
+    A class to generate and manage network characteristics for hybrid RF-WOC networks.
+    
+    This class handles the generation of:
+    - Network topology
+    - Channel parameters (SNR, capacity)
+    - Energy consumption models
+    - Message queues and priorities
+    
+    Attributes:
+        numAPs (int): Number of Access Points
+        numDevices (int): Number of IoT devices
+        num_time_slots (int): Number of time slots in simulation
+    """
+    
     def __init__(self, numAPs, numDevices, num_time_slots):
-        self.num_APs = numAPs
-        self.num_devices = numDevices
-        self.num_time_slots = num_time_slots
-        self.N=self.num_APs+self.num_devices
-
-        
-    def generate_network_parameters(self,minD,maxD,minE,maxE):
         """
-        Generate network parameters including distance matrix, SNR matrices, and capacity matrices.
+        Initialize network characteristics.
         
+        Args:
+            numAPs (int): Number of Access Points
+            numDevices (int): Number of IoT devices
+            num_time_slots (int): Number of time slots
+        """
+        self.numAPs = numAPs
+        self.numDevices = numDevices
+        self.num_time_slots = num_time_slots
+        self.N = numAPs + numDevices  # Total number of nodes
+
+    def generate_network_parameters(self, minD, maxD, minE, maxE):
+        """
+        Generate network parameters including distances, SNR, capacity, and energy.
+        
+        Args:
+            minD (float): Minimum distance between nodes
+            maxD (float): Maximum distance between nodes
+            minE (float): Minimum energy consumption
+            maxE (float): Maximum energy consumption
             
         Returns:
-        --------
-        tuple
-            (distance_matrix, snr_db_matrix_WOC, capacity_matrix_WOC, 
-             snr_db_matrix_RF, capacity_matrix_RF, snr_matrix, capacity_matrix,
-             SendEnergy, RecieveEnergy, EnergyTotal)
+            tuple: (distance_matrix, snr_db_matrix_WOC, capacity_matrix_WOC,
+                   snr_db_matrix_RF, capacity_matrix_RF, snr_matrix,
+                   capacity_matrix, SendEnergy, RecieveEnergy, EnergyTotal)
         """
-
-
-
-
-        
         # Initialize matrices
         distance_matrix = np.random.uniform(minD, maxD, size=(self.N, self.N))
         snr_db_matrix_WOC = np.zeros((self.N, self.N, self.num_time_slots))
@@ -57,8 +100,8 @@ class NetworkCharacteristics:
         RecieveEnergy = np.zeros((2, self.N, self.N, self.num_time_slots))
         
         # Generate energy for devices (APs have infinite energy)
-        EnergyTotal = np.random.uniform(minE, maxE, size=(self.N - self.num_APs))
-        EnergyTotal = np.concatenate(([np.inf] * self.num_APs, EnergyTotal))
+        EnergyTotal = np.random.uniform(minE, maxE, size=(self.N - self.numAPs))
+        EnergyTotal = np.concatenate(([np.inf] * self.numAPs, EnergyTotal))
         
         # Calculate SNR and capacity for each node pair and time slot
         for i in range(self.N):
@@ -94,7 +137,7 @@ class NetworkCharacteristics:
                     blockage_probability = 0
                     blockage_event = np.random.rand() < blockage_probability
                     
-                    if (blockage_event) or (i==j) or (i<self.num_APs and j<self.num_APs) or (i>=self.num_APs and j>=self.num_APs):
+                    if (blockage_event) or (i==j) or (i<self.numAPs and j<self.numAPs) or (i>=self.numAPs and j>=self.numAPs):
                         snr_db_matrix_WOC[i][j][t] = -20
                         capacity_matrix_WOC[i][j][t] = 0
                         SendEnergy[1][i][j][t] = 1e50
@@ -108,7 +151,7 @@ class NetworkCharacteristics:
                     blockage_event = np.random.rand() < blockage_probability
                    
                     # RF
-                    if (blockage_event) or i==j or (i<self.num_APs and j<self.num_APs):
+                    if (blockage_event) or i==j or (i<self.numAPs and j<self.numAPs):
                         snr_db_matrix_RF[i][j][t] = -20
                         capacity_matrix_RF[i][j][t] = 0
                         SendEnergy[0][i][j][t] = 1e50
@@ -129,27 +172,18 @@ class NetworkCharacteristics:
                 snr_db_matrix_RF, capacity_matrix_RF, snr_matrix, capacity_matrix,
                 SendEnergy, RecieveEnergy, EnergyTotal)
     
-
-    
-
-    def generate_messages(self, minSize=1, maxSize  =3, appSize=2, data_gen_prob=0.3):  # 70% probability of message
+    def generate_messages(self, minSize, maxSize, appSize, data_gen_prob):
         """
-        Generate messages between nodes using a Bernoulli process with probability 0.7.
+        Generate message queues with different priorities and sizes.
         
-        Parameters:
-        -----------
-        minSize : int
-            Minimum message length
-        maxSize : int
-            Maximum message length
-        appSize : int
-            Number of different application types
-        data_gen_prob : float   
-            Probability of generating a message
+        Args:
+            minSize (int): Minimum message size
+            maxSize (int): Maximum message size
+            appSize (int): Application-specific size
+            data_gen_prob (float): Probability of message generation
+            
         Returns:
-        --------
-        tuple
-            (T, MessageBegin, MessageEnd, msgQueues, BiggestMsg, msgApp)
+            tuple: (T, MessageBegin, MessageEnd, msgQueues, BiggestMsg, msgApp)
         """
         T = np.zeros((self.num_time_slots, self.N, self.N))
         MessageBegin = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
@@ -160,7 +194,7 @@ class NetworkCharacteristics:
         
         for i in range(self.N):
             for j in range(self.N):
-                if i == j or (i < self.num_APs and j < self.num_APs):  # no messages between APs or self
+                if i == j or (i < self.numAPs and j < self.numAPs):  # no messages between APs or self
                     continue
                     
                 # Bernoulli process for each time slot
@@ -191,9 +225,19 @@ class NetworkCharacteristics:
         
         return T, MessageBegin, MessageEnd, msgQueues, BiggestMsg, msgApp
                                 
-
-
-    def generate_size(self,msgQueues,sizemin,sizemax,S_p):
+    def generate_size(self, msgQueues, sizemin, sizemax, S_p):
+        """
+        Generate message sizes for the queues.
+        
+        Args:
+            msgQueues (list): List of message queues
+            sizemin (int): Minimum size
+            sizemax (int): Maximum size
+            S_p (int): Packet size
+            
+        Returns:
+            tuple: (Pt, Pt_number, maxN)
+        """
         #low, meduim, high
         Pt = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         Pt_number = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))

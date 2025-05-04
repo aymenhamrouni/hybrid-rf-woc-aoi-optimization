@@ -88,7 +88,7 @@ def plot_simulation_results(EnergyPerBit_RF, EnergyPerBit_Hybrid, EnergyPerBit_W
                           TotalExchangedPackagesRF, TotalExchangedPackagesHybrid, TotalExchangedPackagesWOC,
                           MAoIRF, MAoIHybrid, MAoIWOC, MAoIRF_C, MAoIHybrid_C, MAoIWOC_C,
                           PAoIRF, PAoIHybrid, PAoIWOC, PAoIRF_C, PAoIHybrid_C, PAoIWOC_C,
-                          N_montecarlo, Type):
+                          N_montecarlo, Type='Energy/Throughput'):
     """
     Plot simulation results including energy per bit, total exchanged packets, and AoI metrics.
     """

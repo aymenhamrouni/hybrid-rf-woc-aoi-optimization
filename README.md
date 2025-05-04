@@ -20,7 +20,6 @@ This implementation provides a comprehensive framework for optimizing hybrid RF-
    - `multi-objective-max-messages and min-energy`: Combined objective with weighted factors
 
 2. **Network Analysis Capabilities**:
-   - SNR and capacity distribution analysis
    - Energy efficiency evaluation
    - Age of Information (AoI) metrics:
      - Peak AoI
@@ -31,17 +30,15 @@ This implementation provides a comprehensive framework for optimizing hybrid RF-
    - Network throughput analysis
 
 3. **Simulation Types**:
-   - Fixed network topology simulation
+   - Variable network load size w.r.t energy consumption and packet delivery rate
    - Variable network size analysis:
      - Varying number of Access Points (APs)
      - Varying number of IoT devices
-   - Monte Carlo simulations for statistical analysis
 
 4. **Visualization Tools**:
-   - Network parameter distributions
+   - Packet delivery rate and throughput
    - Energy consumption patterns
    - AoI evolution over time
-   - Scheduling matrix visualization
    - Technology switching patterns
 
 ### Advanced Features
@@ -61,22 +58,48 @@ This implementation provides a comprehensive framework for optimizing hybrid RF-
    - Communication delay
    - Technology switching frequency
 
-3. **Application Support**:
-   - Multi-application scenarios
-   - Different message sizes and priorities
-   - Context-aware communication
-
 ## Project Structure
 
 ```
 .
-├── main.py                 # Main simulation driver
+├── main.py                 # Main simulation driver and entry point
+│   - Handles simulation setup and execution
+│   - Manages Monte Carlo simulations
+│   - Controls network size variations
+│   - Coordinates different simulation types
+│
 ├── MINLP_model.py         # MINLP optimization model implementation
+│   - Implements the core optimization model
+│   - Handles multiple objective functions
+│   - Manages constraints and variables
+│   - Solves the optimization problem
+│
 ├── data_generation.py     # Network and message data generation
+│   - Generates network topology
+│   - Creates message queues and priorities
+│   - Calculates channel parameters
+│   - Manages network characteristics
+│
 ├── utils.py               # Utility functions and metrics
+│   - Provides visualization tools
+│   - Implements AoI calculations
+│   - Handles simulation results processing
+│   - Contains helper functions for analysis
+│
 ├── constants.py           # System constants and parameters
+│   - Physical layer constants
+│   - WOC and RF parameters
+│   - System configuration values
+│   - Simulation parameters
+│
 ├── requirements.txt       # Python dependencies
+│   - Lists all required packages
+│   - Specifies version requirements
+│
 └── .gitignore            # Git ignore rules
+    - Excludes Python cache files
+    - Ignores virtual environment
+    - Excludes IDE-specific files
 ```
 
 ## Dependencies
@@ -118,10 +141,41 @@ snr_min_woc = 10 # Minimum SNR for WOC (dB)
 snr_min_rf = 30  # Minimum SNR for RF (dB)
 ```
 
-2. Run the main simulation:
+2. Configure simulation output parameters:
+```python
+# Output control parameters
+Verbose = True   # Enable detailed simulation output
+VIZ = True       # Enable visualization plots
+```
+
+3. Run the main simulation:
 ```bash
 python main.py
 ```
+
+### Output Control Parameters
+
+The simulation provides two key parameters to control the level of detail in the output:
+
+1. **Verbose Mode** (`Verbose`):
+   - When `True`: Provides detailed simulation output including:
+     - Optimization progress
+     - Network statistics
+     - Energy consumption details
+     - AoI metrics for each node pair
+     - Technology switching information
+     - Performance metrics
+   - When `False`: Provides minimal output, showing only essential information
+
+2. **Visualization Mode** (`VIZ`):
+   - When `True`: Generates various plots including:
+     - Network parameter distributions (SNR and capacity)
+     - Energy efficiency metrics
+     - AoI evolution plots
+     - Scheduling matrices
+     - Technology switching patterns
+     - Performance comparison plots
+   - When `False`: Disables all visualization outputs
 
 ### Advanced Usage
 
@@ -137,14 +191,18 @@ run_APs_simulation(
     minD=5, maxD=20,     # Distance range
     minE=0.05, maxE=0.1, # Energy range
     Time=10,             # Time slots
-    N_montecarlo=2       # Monte Carlo runs
+    N_montecarlo=2,      # Monte Carlo runs
+    Verbose=True,        # Enable detailed output
+    VIZ=True            # Enable visualizations
 )
 
 # Varying number of devices
 run_Nd_simulation(
     N_d_range=range(5, 10),
     N_APs=3,
-    # ... other parameters
+    # ... other parameters ...
+    Verbose=True,        # Enable detailed output
+    VIZ=True            # Enable visualizations
 )
 ```
 
@@ -156,18 +214,27 @@ from MINLP_model import MINLP_model
 solution = MINLP_model(
     # ... network parameters ...
     objective_type='multi-objective-max-messages and min-energy',
-    Timeout=60
+    Timeout=60,
+    Verbose=True,        # Enable detailed output
+    VIZ=True            # Enable visualizations
 )
 ```
 
 ## Output and Visualization
 
-The simulation generates several visualizations:
+The simulation generates several visualizations when `VIZ=True`:
 1. Network parameter distributions (SNR and capacity)
 2. Energy efficiency metrics
 3. AoI evolution plots
 4. Scheduling matrices
 5. Performance comparison plots
+
+When `Verbose=True`, the simulation provides detailed console output including:
+1. Optimization progress and solver details
+2. Network statistics and performance metrics
+3. Energy consumption patterns
+4. AoI metrics for each node pair
+5. Technology switching information
 
 ## Contributing
 
