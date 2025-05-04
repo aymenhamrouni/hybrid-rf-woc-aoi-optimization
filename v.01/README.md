@@ -5,7 +5,6 @@
 2. [Code Structure](#code-structure)
 3. [Key Components](#key-components)
 4. [Usage Guide](#usage-guide)
-5. [Configuration](#configuration)
 6. [Output Analysis](#output-analysis)
 7. [Troubleshooting](#troubleshooting)
 
