@@ -115,8 +115,7 @@ def run_MIP_simulation(OMEGA, n, t,nAPs):
         E_Hybrid=[]
         
         
-        for i in trange(Nmontecarlo, token='6972663208:AAGa9eWpdM3sG5hLONyYFolo04Sb4D41gUg', chat_id='6729112338'):
-        #for i in tqdm(range(Nmontecarlo)):
+        for i in tqdm(range(Nmontecarlo)):
 
             simulation = data_generation.NetworkCharacteristics(n, t,nAPs)
             T, MessageBegin, MessageEnd, msgQueues, BiggestMsg, msgApp = simulation.generate_messages(messageSize=t-10,

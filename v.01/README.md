@@ -11,8 +11,8 @@
 
 ## Introduction
 
-This documentation provides a detailed guide to the RF-OC MINLP Optimization framework for IoT networks. The framework implements a Mixed Integer Non Linear Programming approach to optimize hybrid Radio Frequency (RF) and Optical Communication (OC) systems, focusing on Age of Information (AoI) metrics.
-
+This documentation provides a detailed guide to the RF-OC MINLP Optimization framework for IoT networks. The framework implements a Mixed Integer Non-Linear Programming approach to optimize hybrid Radio Frequency (RF) and Optical Communication (OC) systems, focusing on Age of Information (AoI) metrics.
+This code is deprecated. Please refer to newer code availabe at https://github.com/aymenhamrouni/hybrid-rf-woc-aoi-optimization.
 ## Code Structure
 
 The project consists of several key Python files:
@@ -92,23 +92,6 @@ Provides:
 - Performance comparison plots
 
 ## Troubleshooting
-
-### Common Issues
-1. **Solver Errors**
-   - Check CPLEX installation
-   - Verify license validity
-   - Ensure sufficient memory
-
-2. **Visualization Issues**
-   - Check matplotlib installation
-   - Verify backend configuration
-   - Ensure sufficient memory for large plots
-
-3. **Performance Issues**
-   - Reduce network size
-   - Decrease Monte Carlo iterations
-   - Use parallel processing
-
 ### Getting Help
 For additional support, contact:
 - Aymen Hamrouni: [aymen.hamrouni@kuleuven.be]
