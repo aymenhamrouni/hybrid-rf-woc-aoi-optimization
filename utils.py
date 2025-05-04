@@ -16,7 +16,7 @@ import matplotlib
 import itertools
 import data_generation
 from MINLP_model import MINLP_model
-from constant import markers, transferTime
+from constants import markers, transferTime
 import seaborn as sns
 marker = itertools.cycle(markers) 
 matplotlib.use('TkAgg') 

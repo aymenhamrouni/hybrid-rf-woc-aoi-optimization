@@ -10,7 +10,7 @@ import numpy as np
 import random
 from collections import defaultdict
 from utils import rician_fading
-from constant import (
+from constants import (
     q, k_B, Temperature, R_L, IlluminationCoefficient, f_WOC, B_WOC,
     P_tx_WOC, T_optical, R, R_photo, lamda, u, theta, phi, A_rec,
     P_N, V_bias, f_RF, lambda_RF, B_RF, P_tx_RF, attenuation_coefficient_RF,
