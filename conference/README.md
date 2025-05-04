@@ -35,12 +35,11 @@ This implementation provides a comprehensive framework for:
 
 ```
 .
-└── conference/
-    ├── main.py                 # Main simulation driver
-    ├── MINLP_model.py          # MINLP optimization model implementation
-    ├── data_generation.py      # Network and message data generation
-    ├── utils.py                # Utility functions and metrics
-    └── constants.py            # System constants and parameters
+├── main.py                 # Main simulation driver
+├── MINLP_model.py          # MINLP optimization model implementation
+├── data_generation.py      # Network and message data generation
+├── utils.py                # Utility functions and metrics
+└── constants.py            # System constants and parameters
 ```
 
 ## Key Features
@@ -98,7 +97,7 @@ pip install -r requirements.txt
 
 2. Run the main simulation:
 ```bash
-python conference/main.py
+python main.py
 ```
 
 ### Network Size Analysis
@@ -165,85 +164,3 @@ For questions or inquiries, please contact:
 - Aymen Hamrouni: [aymen.hamrouni@kuleuven.be]
 - Sofie Pollin: [sofie.pollin@kuleuven.be]
 - Hazem Sallouha: [hazem.sallouha@kuleuven.be]
-
-# Network Optimization with RF and WOC Technologies
-
-This project implements a Mixed Integer Non-Linear Programming (MINLP) model for optimizing network scheduling in a hybrid RF-WOC (Radio Frequency - Wireless Optical Communication) system.
-
-## Project Structure
-
-```
-conference/
-├── MINLP_withNetwork.py    # Main simulation and optimization code
-├── MINLP_model.py          # MINLP optimization model implementation
-├── data_generation.py      # Network and message data generation
-├── utils.py                # Utility functions and metrics
-├── constants.py            # System constants and parameters
-└── requirements.txt        # Project dependencies
-```
-
-## Key Components
-
-1. **MINLP_withNetwork.py**
-   - Main simulation driver
-   - Handles network setup and optimization
-   - Manages RF and WOC communication modes
-   - Collects and analyzes performance metrics
-
-2. **MINLP_model.py**
-   - Implements the core MINLP optimization model
-   - Handles constraints and objective functions
-   - Manages communication scheduling
-
-3. **data_generation.py**
-   - Generates network characteristics
-   - Creates message queues and timing information
-   - Handles packet size generation
-
-4. **utils.py**
-   - Provides utility functions for metrics tracking
-   - Handles result visualization
-   - Manages simulation statistics
-
-5. **constants.py**
-   - Contains all system parameters
-   - Physical layer parameters
-   - Communication parameters
-   - Simulation settings
-
-## Key Features
-
-- Hybrid RF-WOC communication optimization
-- Energy efficiency analysis
-- Age of Information (AoI) metrics
-- Network performance evaluation
-- Monte Carlo simulations
-
-## Dependencies
-
-- Python 3.x
-- NumPy
-- Matplotlib
-- Docplex
-- Pandas
-- Seaborn
-
-## Usage
-
-1. Configure system parameters in `constants.py`
-2. Run the main simulation:
-   ```bash
-   python MINLP_withNetwork.py
-   ```
-
-## Output
-
-The simulation generates:
-- Energy consumption metrics
-- Communication delay statistics
-- Age of Information (AoI) measurements
-- Network performance visualizations
-
-## Author
-
-Aymen Hamrouni 
