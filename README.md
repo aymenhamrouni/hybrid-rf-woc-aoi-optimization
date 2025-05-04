@@ -35,12 +35,11 @@ This implementation provides a comprehensive framework for:
 
 ```
 .
-└── conference/
-    ├── main.py                 # Main simulation driver
-    ├── MINLP_model.py          # MINLP optimization model implementation
-    ├── data_generation.py      # Network and message data generation
-    ├── utils.py                # Utility functions and metrics
-    └── constants.py            # System constants and parameters
+├── main.py                 # Main simulation driver
+├── MINLP_model.py          # MINLP optimization model implementation
+├── data_generation.py      # Network and message data generation
+├── utils.py                # Utility functions and metrics
+└── constants.py            # System constants and parameters
 ```
 
 ## Key Features
@@ -77,8 +76,8 @@ This implementation provides a comprehensive framework for:
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd hybrid-rf-woc-network
+git clone https://github.com/aymenhamrouni/hybrid-rf-woc-aoi-optimization.git
+cd hybrid-rf-woc-aoi-optimization
 ```
 
 2. Install dependencies:
@@ -98,7 +97,7 @@ pip install -r requirements.txt
 
 2. Run the main simulation:
 ```bash
-python conference/main.py
+python main.py
 ```
 
 ### Network Size Analysis
@@ -147,6 +146,14 @@ The simulation generates several visualizations:
 3. Mean and Peak Age of Information metrics
 4. Network scheduling matrices
 
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
 ## License
 
 This code is provided for research purposes only. All rights reserved. Any use of this code must include proper citation of the original paper.
@@ -154,6 +161,6 @@ This code is provided for research purposes only. All rights reserved. Any use o
 ## Contact
 
 For questions or inquiries, please contact:
-- Aymen Hamrouni: [email]
-- Sofie Pollin: [email]
-- Hazem Sallouha: [email] 
+- Aymen Hamrouni: [aymen.hamrouni@kuleuven.be]
+- Sofie Pollin: [sofie.pollin@kuleuven.be]
+- Hazem Sallouha: [hazem.sallouha@kuleuven.be]
