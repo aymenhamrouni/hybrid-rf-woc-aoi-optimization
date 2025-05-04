@@ -1,0 +1,153 @@
+# A Mixed Integer Non-Linear Programming for Hybrid Radio Frequency (RF)/ Optical Communication (OC) in IoT Networks
+
+> **Note**: This is version 0.1 of the code. A newer, more comprehensive version is available at [https://github.com/aymenhamrouni/hybrid-rf-woc-aoi-optimization](https://github.com/aymenhamrouni/hybrid-rf-woc-aoi-optimization).
+
+## Overview
+
+This project implements a Mixed Integer Linear Programming (MILP) optimization framework for hybrid Radio Frequency (RF) and Optical Communication (OC) systems in IoT networks. The framework focuses on optimizing device selection and communication parameters to minimize Age of Information (AoI) while considering energy consumption constraints.
+
+## Key Features
+
+- Hybrid RF/OC communication optimization
+- Age of Information (AoI) minimization
+- Energy consumption constraints
+- Device selection optimization
+- Monte Carlo simulation support
+- Parallel processing capabilities
+- Visualization tools for results analysis
+
+## Project Structure
+
+```
+.
+├── main.py                 # Main simulation script
+├── milpModel.py           # Mixed Integer Linear Programming model
+├── paretoMILP.py          # Pareto optimization implementation
+├── Pareto.py              # Pareto front analysis
+├── data_generation.py     # Simulation data generation
+├── utils.py               # Helper functions
+└── requirement.txt        # Python dependencies
+```
+
+## Dependencies
+
+The project requires Python 3.x and several scientific computing packages. Key dependencies include:
+- docplex (IBM CPLEX solver)
+- numpy
+- pandas
+- matplotlib
+- scipy
+- joblib
+- mpld3
+- tqdm
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/aymenhamrouni/RF-OC_MIQP_Optimization_for_AoI.git
+cd RF-OC_MIQP_Optimization_for_AoI
+```
+
+2. Install the required packages:
+```bash
+pip install -r requirement.txt
+```
+
+## Usage
+
+### Running the Main Simulation
+
+To run the main simulation and generate device selections and performance metrics:
+```bash
+python main.py
+```
+
+This will:
+- Generate simulation data
+- Run the optimization framework
+- Produce plots for:
+  - Age of Information (AoI) analysis
+  - Energy consumption
+  - Device selection patterns
+  - Performance metrics
+
+### Generating Pareto Analysis
+
+To generate the Pareto front analysis for RF and OC trade-offs:
+```bash
+python Pareto.py
+```
+
+This will create plots showing the trade-off between RF and OC communication parameters.
+
+## Key Parameters
+
+### Energy Parameters
+- `SendEnergy`: [70, 90] mW for RF and Light transmission
+- `RecieveEnergy`: [18, 2] mW for RF and Light reception
+- `thresholdRF`: 0.92 (RF threshold)
+- `thresholdL`: 0.92 (Light threshold)
+
+### Simulation Parameters
+- `Nmontecarlo`: Number of Monte Carlo iterations
+- `num_cores`: Number of CPU cores for parallel processing
+
+## Output
+
+The simulation generates several types of outputs:
+- Device selection patterns
+- AoI performance metrics
+- Energy consumption analysis
+- Pareto front analysis for RF/OC trade-offs
+- Various performance plots and visualizations
+
+## Notes
+
+- The simulation uses Monte Carlo methods with configurable iterations
+- The framework supports parallel processing using all available CPU cores
+- Results are saved in both numerical and graphical formats
+
+## Citation
+
+If you use this code in your research, please cite:
+> Hamrouni, A., Pollin, S., & Sallouha, H. (2024). AoI in Context-Aware Hybrid Radio-Optical IoT Networks. In _2024 IEEE Global Communications Conference (GLOBECOM)_ (pp. 1966-1972). IEEE. DOI: 10.1109/GLOBECOM52923.2024.10901639
+
+## Contact
+
+For questions or inquiries, please contact:
+- Aymen Hamrouni: [aymen.hamrouni@kuleuven.be]
+- Sofie Pollin: [sofie.pollin@kuleuven.be]
+- Hazem Sallouha: [hazem.sallouha@kuleuven.be]
+
+# How To Use:
+
+  
+
+- Install the required packages using requirement.txt :
+
+```
+
+pip install -r requirements.txt
+
+```
+
+- Run main.py to generate devices' selections and simulation figures (i.e., AoI, Energy Consumption, etc) :
+
+ ```
+
+python main.py
+
+```
+- Run Pareto.py to generate the pareto weights curve for OC and RF
+
+
+
+ ```
+
+python Pareto.py
+
+```
+
+  
+  
