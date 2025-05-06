@@ -72,7 +72,6 @@ n=4
 t=15 
     
 
-#for i in trange(Nmontecarlo, token='6972663208:AAGa9eWpdM3sG5hLONyYFolo04Sb4D41gUg', chat_id='6729112338'):
 for i in tqdm(range(Nmontecarlo)):
 
     simulation = data_generation.NetworkCharacteristics(n, t)
