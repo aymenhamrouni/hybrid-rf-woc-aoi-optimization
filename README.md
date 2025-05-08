@@ -13,7 +13,6 @@ This implementation provides a comprehensive framework for optimizing hybrid RF-
 1. **Multiple Optimization Objectives**:
    - `max_messages`: Maximize the number of transmitted messages
    - `min_energy`: Minimize energy consumption
-   - `max_capacity`: Maximize network capacity
    - `min_delay`: Minimize transmission delay
    - `min_switching`: Minimize technology switching overhead
    - `max_messages-w.r.t.energy`: Maximize messages with respect to energy consumption
